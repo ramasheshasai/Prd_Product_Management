@@ -66,46 +66,46 @@ const Templates: React.FC<TemplatesProps> = ({ onSelectTemplate, onBack }) => {
   const getIcon = (category: string) => {
     switch (category) {
       case 'new-feature':
-        return <Sparkles className="h-6 w-6 text-blue-600" />;
+        return <Sparkles className="h-6 w-6 text-olive-700" />;
       case 'enhancement':
-        return <FileText className="h-6 w-6 text-green-600" />;
+        return <FileText className="h-6 w-6 text-orange-600" />;
       case 'bug-fix':
-        return <Bug className="h-6 w-6 text-red-600" />;
+        return <Bug className="h-6 w-6 text-primary-600" />;
       case 'mvp':
-        return <Rocket className="h-6 w-6 text-purple-600" />;
+        return <Rocket className="h-6 w-6 text-olive-600" />;
       default:
-        return <FileText className="h-6 w-6 text-gray-600" />;
+        return <FileText className="h-6 w-6 text-primary-600" />;
     }
   };
 
-  const getBackgroundColor = (category: string) => {
+  const getBorderColor = (category: string) => {
     switch (category) {
       case 'new-feature':
-        return 'from-blue-50 to-blue-100 border-blue-200';
+        return 'border-olive-200 hover:border-olive-300';
       case 'enhancement':
-        return 'from-green-50 to-green-100 border-green-200';
+        return 'border-orange-200 hover:border-orange-300';
       case 'bug-fix':
-        return 'from-red-50 to-red-100 border-red-200';
+        return 'border-primary-200 hover:border-primary-300';
       case 'mvp':
-        return 'from-purple-50 to-purple-100 border-purple-200';
+        return 'border-olive-200 hover:border-olive-300';
       default:
-        return 'from-gray-50 to-gray-100 border-gray-200';
+        return 'border-primary-200 hover:border-primary-300';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-beige-200">
+      <div className="bg-primary-900 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <button 
               onClick={onBack}
-              className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="flex items-center space-x-2 text-beige-300 hover:text-white transition-colors font-body"
             >
               <ArrowLeft className="h-5 w-5" />
               <span>Back to Home</span>
             </button>
-            <h1 className="text-xl font-semibold text-gray-900">PRD Templates</h1>
+            <h1 className="text-xl font-semibold text-white font-sans">PRD Templates</h1>
             <div></div>
           </div>
         </div>
@@ -113,10 +113,10 @@ const Templates: React.FC<TemplatesProps> = ({ onSelectTemplate, onBack }) => {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose a Template</h2>
-          <p className="text-gray-600">
-            Start with a proven structure for your PRD. These templates include common sections and prompts
-            to help you create comprehensive documentation.
+          <h2 className="text-3xl font-bold text-primary-900 mb-2 font-sans">Choose a Template</h2>
+          <p className="text-primary-600 font-body">
+            Start with proven PRD structures. Each template includes essential sections and 
+            guidance for comprehensive product documentation.
           </p>
         </div>
 
@@ -124,8 +124,8 @@ const Templates: React.FC<TemplatesProps> = ({ onSelectTemplate, onBack }) => {
           {templates.map((template) => (
             <div 
               key={template.id}
-              className={`bg-gradient-to-br ${getBackgroundColor(template.category)} border rounded-xl p-6 
-                       hover:shadow-lg transition-all cursor-pointer transform hover:scale-105`}
+             className={`bg-white border-2 ${getBorderColor(template.category)} rounded-lg p-6 
+                      hover:shadow-md transition-all cursor-pointer`}
               onClick={() => onSelectTemplate(template)}
             >
               <div className="flex items-start space-x-4">
@@ -133,17 +133,17 @@ const Templates: React.FC<TemplatesProps> = ({ onSelectTemplate, onBack }) => {
                   {getIcon(template.category)}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-primary-900 mb-2 font-sans">
                     {template.name}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  <p className="text-primary-600 text-sm leading-relaxed mb-4 font-body">
                     {template.description}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                    <span className="text-xs font-medium text-primary-500 uppercase tracking-wide font-body">
                       {template.category.replace('-', ' ')}
                     </span>
-                    <button className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                    <button className="text-olive-700 hover:text-olive-800 font-medium text-sm transition-colors font-body">
                       Use Template →
                     </button>
                   </div>
@@ -154,7 +154,7 @@ const Templates: React.FC<TemplatesProps> = ({ onSelectTemplate, onBack }) => {
         </div>
 
         <div className="mt-12 bg-white rounded-xl shadow-sm p-8 border">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+          <h3 className="text-xl font-semibold text-primary-900 mb-4 font-sans">
             What's included in every template?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -197,8 +197,8 @@ interface TemplateFeatureProps {
 const TemplateFeature: React.FC<TemplateFeatureProps> = ({ title, description }) => {
   return (
     <div>
-      <h4 className="font-medium text-gray-900 mb-1">{title}</h4>
-      <p className="text-sm text-gray-600">{description}</p>
+      <h4 className="font-medium text-primary-900 mb-1 font-sans">{title}</h4>
+      <p className="text-sm text-primary-600 font-body">{description}</p>
     </div>
   );
 };

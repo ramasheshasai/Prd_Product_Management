@@ -55,18 +55,18 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-beige-200">
+      <div className="bg-primary-900 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <button 
               onClick={onBack}
-              className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="flex items-center space-x-2 text-beige-300 hover:text-white transition-colors font-body"
             >
               <ArrowLeft className="h-5 w-5" />
               <span>Back to Home</span>
             </button>
-            <h1 className="text-xl font-semibold text-gray-900">My PRD Dashboard</h1>
+            <h1 className="text-xl font-semibold text-white font-sans">My Documents</h1>
             <div></div>
           </div>
         </div>
@@ -74,23 +74,23 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Your PRDs</h2>
-          <p className="text-gray-600">
-            Manage and access all your saved Product Requirement Documents.
+          <h2 className="text-3xl font-bold text-primary-900 mb-2 font-sans">Your PRDs</h2>
+          <p className="text-primary-600 font-body">
+            Access and manage your saved Product Requirement Documents.
           </p>
         </div>
 
         {prds.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-            <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No PRDs yet</h3>
-            <p className="text-gray-600 mb-6">
-              Create your first PRD to get started with better product documentation.
+          <div className="bg-white rounded-lg shadow-sm p-12 text-center border border-primary-200">
+            <FileText className="h-16 w-16 text-primary-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-primary-900 mb-2 font-sans">No documents yet</h3>
+            <p className="text-primary-600 mb-6 font-body">
+              Create your first PRD to start building your product documentation library.
             </p>
             <button 
               onClick={onBack}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg 
-                       font-semibold transition-colors"
+              className="bg-olive-700 hover:bg-olive-800 text-white px-6 py-3 rounded-lg 
+                       font-semibold transition-colors font-sans"
             >
               Create Your First PRD
             </button>
@@ -109,24 +109,24 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
 
         {/* Stats Section */}
         {prds.length > 0 && (
-          <div className="mt-12 bg-white rounded-xl shadow-sm p-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Your Statistics</h3>
+          <div className="mt-12 bg-white rounded-lg shadow-sm p-8 border border-primary-200">
+            <h3 className="text-lg font-semibold text-primary-900 mb-6 font-sans">Document Statistics</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
               <div>
-                <div className="text-3xl font-bold text-blue-600 mb-2">{prds.length}</div>
-                <div className="text-gray-600">Total PRDs</div>
+                <div className="text-3xl font-bold text-olive-700 mb-2 font-sans">{prds.length}</div>
+                <div className="text-primary-600 font-body">Total PRDs</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-green-600 mb-2">
+                <div className="text-3xl font-bold text-orange-600 mb-2 font-sans">
                   {Math.round(prds.length / (Math.max(1, Math.ceil((Date.now() - new Date(prds[0]?.createdAt || Date.now()).getTime()) / (1000 * 60 * 60 * 24 * 7)))))}
                 </div>
-                <div className="text-gray-600">PRDs per Week</div>
+                <div className="text-primary-600 font-body">Per Week</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-purple-600 mb-2">
+                <div className="text-3xl font-bold text-primary-700 mb-2 font-sans">
                   {Math.round(prds.reduce((acc, prd) => acc + prd.requirements.length, 0) / Math.max(1, prds.length))}
                 </div>
-                <div className="text-gray-600">Avg Requirements</div>
+                <div className="text-primary-600 font-body">Avg Requirements</div>
               </div>
             </div>
           </div>
@@ -143,38 +143,38 @@ interface PRDCardProps {
 
 const PRDCard: React.FC<PRDCardProps> = ({ prd, onDownload }) => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow p-6">
+    <div className="bg-white rounded-lg shadow-sm border border-primary-200 hover:shadow-md transition-shadow p-6">
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+          <h3 className="text-lg font-semibold text-primary-900 mb-2 line-clamp-2 font-sans">
             {prd.title}
           </h3>
-          <p className="text-sm text-gray-600 line-clamp-3">
+          <p className="text-sm text-primary-600 line-clamp-3 font-body">
             {prd.problemStatement}
           </p>
         </div>
-        <FileText className="h-5 w-5 text-gray-400 flex-shrink-0 ml-4" />
+        <FileText className="h-5 w-5 text-primary-400 flex-shrink-0 ml-4" />
       </div>
 
-      <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+      <div className="flex items-center space-x-4 text-sm text-primary-500 mb-4 font-body">
         <div className="flex items-center space-x-1">
           <Calendar className="h-4 w-4" />
           <span>{prd.createdAt.toLocaleDateString()}</span>
         </div>
-        <div className="bg-gray-100 px-2 py-1 rounded text-xs">
+        <div className="bg-beige-300 px-2 py-1 rounded text-xs">
           {prd.requirements.length} requirements
         </div>
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-primary-500 font-body">
           Target: {prd.targetAudience}
         </div>
         <div className="flex items-center space-x-2">
           <button 
             onClick={onDownload}
-            className="flex items-center space-x-1 text-blue-600 hover:text-blue-700 
-                     transition-colors text-sm font-medium"
+            className="flex items-center space-x-1 text-olive-700 hover:text-olive-800 
+                     transition-colors text-sm font-medium font-body"
           >
             <Download className="h-4 w-4" />
             <span>Download</span>

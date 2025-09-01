@@ -73,22 +73,22 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-beige-200">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-primary-900 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
               <button 
                 onClick={onBack}
-                className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
+                className="flex items-center space-x-2 text-beige-300 hover:text-white transition-colors font-body"
               >
                 <ArrowLeft className="h-5 w-5" />
                 <span>Edit</span>
               </button>
               <button 
                 onClick={onHome}
-                className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
+                className="flex items-center space-x-2 text-beige-300 hover:text-white transition-colors font-body"
               >
                 <Home className="h-5 w-5" />
                 <span>Home</span>
@@ -98,17 +98,17 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
             <div className="flex items-center space-x-3">
               <button
                 onClick={copyToClipboard}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg 
-                         hover:bg-gray-50 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-beige-400 rounded-lg 
+                         hover:bg-beige-100 transition-colors text-primary-700 font-body"
               >
-                {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+                {copied ? <Check className="h-4 w-4 text-olive-600" /> : <Copy className="h-4 w-4" />}
                 <span>{copied ? 'Copied!' : 'Copy'}</span>
               </button>
               
               <button
                 onClick={downloadPRD}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg 
-                         hover:bg-gray-50 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-beige-400 rounded-lg 
+                         hover:bg-beige-100 transition-colors text-primary-700 font-body"
               >
                 <Download className="h-4 w-4" />
                 <span>Download</span>
@@ -116,8 +116,8 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
               
               <button
                 onClick={handleSave}
-                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 
-                         text-white rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 bg-olive-700 hover:bg-olive-800 
+                         text-white rounded-lg transition-colors font-sans"
               >
                 {saved ? <Check className="h-4 w-4" /> : <Save className="h-4 w-4" />}
                 <span>{saved ? 'Saved!' : 'Save'}</span>
@@ -129,7 +129,7 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
 
       {/* PRD Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-sm p-8 border border-primary-200">
           <PRDDocument prd={prd} />
         </div>
       </div>
@@ -143,20 +143,20 @@ interface PRDDocumentProps {
 
 const PRDDocument: React.FC<PRDDocumentProps> = ({ prd }) => {
   return (
-    <div className="prose prose-blue max-w-none">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6 border-b-2 border-blue-100 pb-4">
+    <div className="prose max-w-none">
+      <h1 className="text-3xl font-bold text-primary-900 mb-6 border-b-2 border-beige-400 pb-4 font-sans">
         {prd.title}
       </h1>
       
       <Section title="Problem Statement">
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
-          <p className="text-gray-700 leading-relaxed">{prd.problemStatement}</p>
+        <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
+          <p className="text-primary-800 leading-relaxed font-body">{prd.problemStatement}</p>
         </div>
       </Section>
 
       <Section title="Target Audience">
-        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-          <p className="text-gray-700">{prd.targetAudience}</p>
+        <div className="bg-olive-50 border-l-4 border-olive-500 p-4 rounded-r-lg">
+          <p className="text-primary-800 font-body">{prd.targetAudience}</p>
         </div>
       </Section>
 
@@ -164,10 +164,10 @@ const PRDDocument: React.FC<PRDDocumentProps> = ({ prd }) => {
         <ul className="space-y-3">
           {prd.objectives.map((objective, index) => (
             <li key={index} className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+              <div className="w-6 h-6 bg-olive-100 text-olive-700 rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5 font-sans">
                 {index + 1}
               </div>
-              <span className="text-gray-700 leading-relaxed">{objective}</span>
+              <span className="text-primary-800 leading-relaxed font-body">{objective}</span>
             </li>
           ))}
         </ul>
@@ -176,12 +176,12 @@ const PRDDocument: React.FC<PRDDocumentProps> = ({ prd }) => {
       <Section title="User Stories">
         <div className="space-y-4">
           {prd.userStories.map((story, index) => (
-            <div key={index} className="bg-green-50 border border-green-200 p-4 rounded-lg">
+            <div key={index} className="bg-beige-100 border border-beige-300 p-4 rounded-lg">
               <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">
+                <div className="w-8 h-8 bg-olive-100 text-olive-700 rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 font-sans">
                   US{index + 1}
                 </div>
-                <p className="text-gray-700 italic leading-relaxed">{story}</p>
+                <p className="text-primary-800 italic leading-relaxed font-body">{story}</p>
               </div>
             </div>
           ))}
@@ -189,19 +189,19 @@ const PRDDocument: React.FC<PRDDocumentProps> = ({ prd }) => {
       </Section>
 
       <Section title="Features & Requirements">
-        <div className="bg-gray-50 p-6 rounded-lg border">
+        <div className="bg-beige-100 p-6 rounded-lg border border-beige-300">
           <div className="space-y-2">
             {prd.requirements.map((requirement, index) => (
-              <div key={index} className="text-gray-700">
+              <div key={index} className="text-primary-800 font-body">
                 {requirement.startsWith('•') || requirement.startsWith('-') ? (
                   <div className="flex items-start space-x-2 ml-4">
-                    <span className="text-blue-600 font-bold">•</span>
+                    <span className="text-olive-700 font-bold">•</span>
                     <span>{requirement.replace(/^[•-]\s*/, '')}</span>
                   </div>
                 ) : requirement === '' ? (
                   <div className="h-2"></div>
                 ) : (
-                  <div className={`${requirement.endsWith(':') ? 'font-semibold text-gray-900 mt-3 mb-1' : ''}`}>
+                  <div className={`${requirement.endsWith(':') ? 'font-semibold text-primary-900 mt-3 mb-1 font-sans' : ''}`}>
                     {requirement}
                   </div>
                 )}
@@ -214,9 +214,9 @@ const PRDDocument: React.FC<PRDDocumentProps> = ({ prd }) => {
       <Section title="Acceptance Criteria">
         <div className="space-y-3">
           {prd.acceptanceCriteria.map((criteria, index) => (
-            <div key={index} className="flex items-center space-x-3 bg-green-50 p-3 rounded-lg border border-green-200">
-              <Check className="h-5 w-5 text-green-600 flex-shrink-0" />
-              <span className="text-gray-700">{criteria.replace('✓ ', '')}</span>
+            <div key={index} className="flex items-center space-x-3 bg-olive-50 p-3 rounded-lg border border-olive-200">
+              <Check className="h-5 w-5 text-olive-600 flex-shrink-0" />
+              <span className="text-primary-800 font-body">{criteria.replace('✓ ', '')}</span>
             </div>
           ))}
         </div>
@@ -225,12 +225,12 @@ const PRDDocument: React.FC<PRDDocumentProps> = ({ prd }) => {
       <Section title="Metrics of Success">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {prd.metrics.map((metric, index) => (
-            <div key={index} className="bg-indigo-50 border border-indigo-200 p-4 rounded-lg">
+            <div key={index} className="bg-beige-100 border border-beige-300 p-4 rounded-lg">
               <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                <div className="w-6 h-6 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 font-sans">
                   {index + 1}
                 </div>
-                <p className="text-gray-700 text-sm leading-relaxed">{metric}</p>
+                <p className="text-primary-800 text-sm leading-relaxed font-body">{metric}</p>
               </div>
             </div>
           ))}
@@ -240,31 +240,31 @@ const PRDDocument: React.FC<PRDDocumentProps> = ({ prd }) => {
       <Section title="Risks & Dependencies">
         <div className="space-y-4">
           {prd.risks.map((risk, index) => (
-            <div key={index} className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+            <div key={index} className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
               <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+                <div className="w-8 h-8 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 font-sans">
                   R{index + 1}
                 </div>
-                <p className="text-gray-700">{risk}</p>
+                <p className="text-primary-800 font-body">{risk}</p>
               </div>
             </div>
           ))}
         </div>
       </Section>
 
-      <div className="mt-12 pt-6 border-t border-gray-200 bg-gray-50 -mx-8 -mb-8 px-8 pb-8 rounded-b-xl">
+      <div className="mt-12 pt-6 border-t border-primary-200 bg-beige-100 -mx-8 -mb-8 px-8 pb-8 rounded-b-lg">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-primary-600 font-body">
               Generated on {prd.createdAt.toLocaleDateString()} at {prd.createdAt.toLocaleTimeString()}
             </p>
-            <p className="text-xs text-gray-500 mt-1">
-              PRD Generator • Built for Product Managers
+            <p className="text-xs text-primary-500 mt-1 font-body">
+              PRD Studio • Professional Documentation
             </p>
           </div>
           <div className="text-right">
-            <p className="text-sm font-medium text-gray-900">Ready to share</p>
-            <p className="text-xs text-gray-500">Export or save to continue working</p>
+            <p className="text-sm font-medium text-primary-900 font-sans">Document Complete</p>
+            <p className="text-xs text-primary-500 font-body">Export or save for future reference</p>
           </div>
         </div>
       </div>
@@ -280,7 +280,7 @@ interface SectionProps {
 const Section: React.FC<SectionProps> = ({ title, children }) => {
   return (
     <section className="mb-10">
-      <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-blue-100 flex items-center space-x-2">
+      <h2 className="text-xl font-bold text-primary-900 mb-4 pb-2 border-b-2 border-beige-400 flex items-center space-x-2 font-sans">
         <span>{title}</span>
       </h2>
       {children}
