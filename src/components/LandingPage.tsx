@@ -25,7 +25,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               </button>
               <button 
                 onClick={() => onNavigate('dashboard')}
-                className="text-gray-600 hover:text-blue-500 font-medium transition-colors"
                 className="text-beige-300 hover:text-white font-medium transition-colors"
               >
                 Dashboard
