@@ -3,19 +3,36 @@ import LandingPage from './components/LandingPage';
 import PRDGenerator from './components/PRDGenerator';
 import Templates from './components/Templates';
 import Dashboard from './components/Dashboard';
+import AuthPage from './components/Authentication';
 import { PRD } from './types/prd';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'landing' | 'generator' | 'templates' | 'dashboard'>('landing');
+  // Added auth page state and userName state
+  const [currentPage, setCurrentPage] = useState<'auth' | 'landing' | 'generator' | 'templates' | 'dashboard'>('auth');
   const [savedPRDs, setSavedPRDs] = useState<PRD[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
+  const [userName, setUserName] = useState<string>('');
 
   const handleSavePRD = (prd: PRD) => {
     setSavedPRDs([...savedPRDs, { ...prd, id: Date.now().toString() }]);
   };
 
+  // Handle successful auth
+  const handleAuthenticate = (data: { name: string; email: string; password: string }) => {
+    setUserName(data.name);
+    setCurrentPage('dashboard');
+  };
+
+  const handleLogout = () => {
+    setUserName('');
+    setSavedPRDs([]);
+    setCurrentPage('auth');
+  };
+
   const renderPage = () => {
     switch (currentPage) {
+      case 'auth':
+        return <AuthPage onAuthenticate={handleAuthenticate} />;
       case 'generator':
         return (
           <PRDGenerator 
@@ -39,6 +56,8 @@ function App() {
           <Dashboard 
             prds={savedPRDs}
             onBack={() => setCurrentPage('landing')}
+            userName={userName}    // Pass userName prop
+            onLogout={handleLogout} // Optionally add Logout button in Dashboard
           />
         );
       default:

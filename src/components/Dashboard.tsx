@@ -5,9 +5,10 @@ import { PRD } from '../types/prd';
 interface DashboardProps {
   prds: PRD[];
   onBack: () => void;
+   userName: string;  
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ prds, onBack }) => {
+const Dashboard: React.FC<DashboardProps> = ({ prds, onBack, userName }) => {
   const downloadPRD = (prd: PRD) => {
     const prdText = formatPRDAsText(prd);
     const blob = new Blob([prdText], { type: 'text/plain' });
@@ -64,22 +65,18 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
               className="flex items-center space-x-2 text-beige-300 hover:text-white transition-colors font-body"
             >
               <ArrowLeft className="h-5 w-5" />
-              <span>Back to Home</span>
+              <span>Log Out</span>
             </button>
+
             <h1 className="text-xl font-semibold text-white font-sans">My Documents</h1>
-            <div></div>
+
+            {/* Show logged-in user name at top right */}
+            <div className="text-beige-300 font-medium font-sans text-sm md:text-base">
+              Welcome, <span className="font-bold">{userName}</span>
+            </div>
           </div>
         </div>
       </div>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-primary-900 mb-2 font-sans">Your PRDs</h2>
-          <p className="text-primary-600 font-body">
-            Access and manage your saved Product Requirement Documents.
-          </p>
-        </div>
-
         {prds.length === 0 ? (
           <div className="bg-white rounded-lg shadow-sm p-12 text-center border border-primary-200">
             <FileText className="h-16 w-16 text-primary-400 mx-auto mb-4" />
@@ -132,7 +129,7 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
           </div>
         )}
       </div>
-    </div>
+    
   );
 };
 
