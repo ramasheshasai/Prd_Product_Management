@@ -107,7 +107,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-primary-900 py-16">
+      <div className="bg-primary-900 py-16
+      ">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white mb-4 font-sans">
             Ready to create better PRDs?
