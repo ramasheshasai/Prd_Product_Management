@@ -6,6 +6,7 @@ interface DashboardProps {
   prds: PRD[];
   onBack: () => void;
    userName: string;  
+     onLogout: () => void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ prds, onBack, userName }) => {

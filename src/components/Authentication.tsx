@@ -10,6 +10,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthenticate }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // New state
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,14 +26,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthenticate }) => {
       return;
     }
 
-    // Basic email pattern check
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(!emailPattern.test(email)) {
       setError('Please enter a valid email address.');
       return;
     }
 
-    // Pass data to parent or API handler
     onAuthenticate({ name, email, password });
   };
 
@@ -70,7 +69,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthenticate }) => {
         <label className="block mb-3">
           <span className="text-primary-900 font-semibold">Password</span>
           <input 
-            type="password" 
+            type={showPassword ? 'text' : 'password'} 
             value={password} 
             onChange={(e) => setPassword(e.target.value)} 
             className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-olive-700" 
@@ -78,15 +77,26 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthenticate }) => {
           />
         </label>
 
-        <label className="block mb-6">
+        <label className="block mb-3">
           <span className="text-primary-900 font-semibold">Confirm Password</span>
           <input 
-            type="password" 
+            type={showPassword ? 'text' : 'password'} 
             value={confirmPassword} 
             onChange={(e) => setConfirmPassword(e.target.value)} 
             className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-olive-700" 
             required
           />
+        </label>
+
+        {/* Show password toggle */}
+        <label className="inline-flex items-center mb-6 cursor-pointer">
+          <input 
+            type="checkbox" 
+            checked={showPassword} 
+            onChange={() => setShowPassword(!showPassword)} 
+            className="form-checkbox h-5 w-5 text-olive-700" 
+          />
+          <span className="ml-2 text-primary-900 font-semibold">Show Password</span>
         </label>
 
         <button 
