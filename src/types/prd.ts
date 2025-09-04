@@ -27,4 +27,4 @@ export interface PRDTemplate {
     features: string;
     constraints: string;
   };
-}</parameter>
+}

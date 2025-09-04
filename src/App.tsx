@@ -7,8 +7,9 @@ import AuthPage from './components/Authentication';
 import { PRD } from './types/prd';
 
 function App() {
-  // Added auth page state and userName state
-  const [currentPage, setCurrentPage] = useState<'auth' | 'landing' | 'generator' | 'templates' | 'dashboard'>('auth');
+  const [currentPage, setCurrentPage] = useState<
+    'auth' | 'landing' | 'generator' | 'templates' | 'dashboard'
+  >('auth');
   const [savedPRDs, setSavedPRDs] = useState<PRD[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<any>(null);
   const [userName, setUserName] = useState<string>('');
@@ -17,10 +18,10 @@ function App() {
     setSavedPRDs([...savedPRDs, { ...prd, id: Date.now().toString() }]);
   };
 
-  // Handle successful auth
+  // Handle successful auth → go to landing instead of dashboard
   const handleAuthenticate = (data: { name: string; email: string; password: string }) => {
     setUserName(data.name);
-    setCurrentPage('dashboard');
+    setCurrentPage('landing');
   };
 
   const handleLogout = () => {
@@ -35,7 +36,7 @@ function App() {
         return <AuthPage onAuthenticate={handleAuthenticate} />;
       case 'generator':
         return (
-          <PRDGenerator 
+          <PRDGenerator
             onSave={handleSavePRD}
             template={selectedTemplate}
             onBack={() => setCurrentPage('landing')}
@@ -43,7 +44,7 @@ function App() {
         );
       case 'templates':
         return (
-          <Templates 
+          <Templates
             onSelectTemplate={(template) => {
               setSelectedTemplate(template);
               setCurrentPage('generator');
@@ -53,27 +54,26 @@ function App() {
         );
       case 'dashboard':
         return (
-          <Dashboard 
+          <Dashboard
             prds={savedPRDs}
             onBack={() => setCurrentPage('landing')}
-            userName={userName}    // Pass userName prop
-            onLogout={handleLogout} // Optionally add Logout button in Dashboard
+            userName={userName}
+            onLogout={handleLogout}
           />
         );
+      case 'landing':
       default:
         return (
-          <LandingPage 
+          <LandingPage
             onNavigate={setCurrentPage}
+            userName={userName}
+            onLogout={handleLogout}
           />
         );
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {renderPage()}
-    </div>
-  );
+  return <div className="min-h-screen bg-gray-50">{renderPage()}</div>;
 }
 
 export default App;

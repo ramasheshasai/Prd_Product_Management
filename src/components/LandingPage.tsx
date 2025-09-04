@@ -3,9 +3,11 @@ import { FileText, Zap, Users, Download, ArrowRight } from 'lucide-react';
 
 interface LandingPageProps {
   onNavigate: (page: 'landing' | 'generator' | 'templates' | 'dashboard') => void;
+  userName: string; // 👈 added
+  onLogout?: () => void; // optional logout button
 }
 
-const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, userName, onLogout }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
@@ -14,9 +16,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <FileText className="h-9 w-9 text-beige-400" />
-              <span className="text-2xl font-extrabold text-white tracking-wide">PRD Studio</span>
+              <span className="text-xl font-extrabold text-white tracking-wide">PRD Studio</span>
             </div>
-            <div className="flex space-x-8">
+
+            {/* 👇 Welcome user */}
+              {userName && (
+                <span className="text-beige-300 font-medium text-lg">
+                  Welcome, <span className="font-bold">{userName}</span>
+                </span>
+              )}
+
+            <div className="flex items-center space-x-6">
               <button 
                 onClick={() => onNavigate('templates')}
                 className="text-beige-300 hover:text-white font-semibold transition-colors text-lg"
@@ -29,6 +39,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               >
                 Dashboard
               </button>
+
+              
+
+              {/* 👇 Optional Logout */}
+              {onLogout && (
+                <button
+                  onClick={onLogout}
+                  className="text-beige-300 hover:text-white font-semibold transition-colors text-lg"
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -37,7 +59,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-24 pb-20 text-center">
         <h1 className="text-5xl font-extrabold text-primary-900 mb-8 leading-relaxed font-sans">
-          Professional PRD Creation <span className="text-olive-700"> Made Simple</span>
+          Professional PRD Creation <span className="text-olive-700">Made Simple</span>
         </h1>
         <p className="text-xl text-primary-700 max-w-4xl mx-auto mb-12 font-body leading-relaxed">
           Transform your product ideas into comprehensive requirement documents.  
@@ -120,8 +142,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             Start Creating
           </button>
           <p className="mt-8 text-center text-beige-400 italic text-sm font-body">
-  Made with lots of ❤️ and product 
-</p>
+            Made with lots of ❤️ and product
+          </p>
         </div>
       </section>
     </div>

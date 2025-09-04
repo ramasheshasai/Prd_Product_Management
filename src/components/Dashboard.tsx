@@ -1,15 +1,15 @@
 import React from 'react';
-import { ArrowLeft, FileText, Download, Calendar, Trash2 } from 'lucide-react';
+import { ArrowLeft, FileText, Download, Calendar } from 'lucide-react';
 import { PRD } from '../types/prd';
 
 interface DashboardProps {
   prds: PRD[];
   onBack: () => void;
-   userName: string;  
-     onLogout: () => void;
+  userName: string;  
+  onLogout: () => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ prds, onBack, userName }) => {
+const Dashboard: React.FC<DashboardProps> = ({ prds, onBack, userName, onLogout }) => {
   const downloadPRD = (prd: PRD) => {
     const prdText = formatPRDAsText(prd);
     const blob = new Blob([prdText], { type: 'text/plain' });
@@ -58,79 +58,103 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
 
   return (
     <div className="min-h-screen bg-beige-200">
+      {/* Header */}
       <div className="bg-primary-900 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
+            {/* Back button */}
             <button 
               onClick={onBack}
               className="flex items-center space-x-2 text-beige-300 hover:text-white transition-colors font-body"
             >
               <ArrowLeft className="h-5 w-5" />
-              <span>Log Out</span>
+              <span>Back</span>
             </button>
 
             <h1 className="text-xl font-semibold text-white font-sans">My Documents</h1>
 
-            {/* Show logged-in user name at top right */}
-            <div className="text-beige-300 font-medium font-sans text-sm md:text-base">
-              Welcome, <span className="font-bold">{userName}</span>
+            {/* User + Logout */}
+            <div className="flex items-center space-x-4 text-beige-300 font-medium font-sans text-sm md:text-base">
+              <span>
+                Welcome, <span className="font-bold">{userName}</span>
+              </span>
+              <button
+                onClick={onLogout}
+                className="hover:text-white transition-colors font-body"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
       </div>
-        {prds.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm p-12 text-center border border-primary-200">
-            <FileText className="h-16 w-16 text-primary-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-primary-900 mb-2 font-sans">No documents yet</h3>
-            <p className="text-primary-600 mb-6 font-body">
-              Create your first PRD to start building your product documentation library.
-            </p>
-            <button 
-              onClick={onBack}
-              className="bg-olive-700 hover:bg-olive-800 text-white px-6 py-3 rounded-lg 
-                       font-semibold transition-colors font-sans"
-            >
-              Create Your First PRD
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {prds.map((prd) => (
-              <PRDCard 
-                key={prd.id} 
-                prd={prd} 
-                onDownload={() => downloadPRD(prd)}
-              />
-            ))}
-          </div>
-        )}
 
-        {/* Stats Section */}
-        {prds.length > 0 && (
-          <div className="mt-12 bg-white rounded-lg shadow-sm p-8 border border-primary-200">
-            <h3 className="text-lg font-semibold text-primary-900 mb-6 font-sans">Document Statistics</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-              <div>
-                <div className="text-3xl font-bold text-olive-700 mb-2 font-sans">{prds.length}</div>
-                <div className="text-primary-600 font-body">Total PRDs</div>
+      {/* Empty state vs PRD grid */}
+      {prds.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-sm p-12 text-center border border-primary-200 m-6">
+          <FileText className="h-16 w-16 text-primary-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-primary-900 mb-2 font-sans">
+            Welcome, {userName} 👋
+          </h3>
+          <p className="text-primary-600 mb-6 font-body">
+            You don’t have any PRDs yet. Start by creating your first one!
+          </p>
+          <button 
+            onClick={onBack}
+            className="bg-olive-700 hover:bg-olive-800 text-white px-6 py-3 rounded-lg 
+                     font-semibold transition-colors font-sans"
+          >
+            Create Your First PRD
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 m-6">
+          {prds.map((prd) => (
+            <PRDCard 
+              key={prd.id} 
+              prd={prd} 
+              onDownload={() => downloadPRD(prd)}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Stats Section */}
+      {prds.length > 0 && (
+        <div className="mt-12 bg-white rounded-lg shadow-sm p-8 border border-primary-200 m-6">
+          <h3 className="text-lg font-semibold text-primary-900 mb-6 font-sans">Document Statistics</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="text-3xl font-bold text-olive-700 mb-2 font-sans">{prds.length}</div>
+              <div className="text-primary-600 font-body">Total PRDs</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-orange-600 mb-2 font-sans">
+                {Math.round(
+                  prds.length /
+                  (Math.max(
+                    1,
+                    Math.ceil(
+                      (Date.now() - new Date(prds[0]?.createdAt || Date.now()).getTime()) /
+                      (1000 * 60 * 60 * 24 * 7)
+                    )
+                  ))
+                )}
               </div>
-              <div>
-                <div className="text-3xl font-bold text-orange-600 mb-2 font-sans">
-                  {Math.round(prds.length / (Math.max(1, Math.ceil((Date.now() - new Date(prds[0]?.createdAt || Date.now()).getTime()) / (1000 * 60 * 60 * 24 * 7)))))}
-                </div>
-                <div className="text-primary-600 font-body">Per Week</div>
+              <div className="text-primary-600 font-body">Per Week</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-primary-700 mb-2 font-sans">
+                {Math.round(
+                  prds.reduce((acc, prd) => acc + prd.requirements.length, 0) / Math.max(1, prds.length)
+                )}
               </div>
-              <div>
-                <div className="text-3xl font-bold text-primary-700 mb-2 font-sans">
-                  {Math.round(prds.reduce((acc, prd) => acc + prd.requirements.length, 0) / Math.max(1, prds.length))}
-                </div>
-                <div className="text-primary-600 font-body">Avg Requirements</div>
-              </div>
+              <div className="text-primary-600 font-body">Avg Requirements</div>
             </div>
           </div>
-        )}
-      </div>
-    
+        </div>
+      )}
+    </div>
   );
 };
 
