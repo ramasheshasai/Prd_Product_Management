@@ -75,9 +75,10 @@ Generated on: ${prd.createdAt.toLocaleDateString()}
 
             {/* User + Logout */}
             <div className="flex items-center space-x-4 text-beige-300 font-medium font-sans text-sm md:text-base">
-              <span>
+               {/* <span>
                 Welcome, <span className="font-bold">{userName}</span>
-              </span>
+              </span>  */}
+
               <button
                 onClick={onLogout}
                 className="hover:text-white transition-colors font-body"
