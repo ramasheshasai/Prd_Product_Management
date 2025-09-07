@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:full": "concurrently \"npm run backend\" \"npm run dev\"",
-    "backend": "nodemon backend/server.js",
+    "dev:full": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "frontend": "vite",
+    "backend": "cd backend && nodemon server.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

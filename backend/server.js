@@ -13,8 +13,17 @@ const journeyRoutes = require('./routes/journeys');
 
 const app = express();
 
-// ✅ Connect to MongoDB
-connectDB();
+// ✅ Connect to MongoDB with error handling
+const startServer = async () => {
+  try {
+    await connectDB();
+    console.log('✅ Database connected successfully');
+  } catch (error) {
+    console.error('❌ Database connection failed:', error.message);
+    console.log('📝 Make sure MongoDB is running and check your connection string');
+    process.exit(1);
+  }
+};
 
 // ✅ Security middleware
 app.use(helmet());
@@ -162,10 +171,17 @@ app.use((err, req, res, next) => {
 
 // ✅ Start server
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📝 PRD Studio API ready`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+
+startServer().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📝 PRD Studio API ready`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🔗 MongoDB URI: ${process.env.MONGODB_URI || 'Not configured'}`);
+  });
+}).catch(error => {
+  console.error('❌ Failed to start server:', error.message);
+  process.exit(1);
 });
 
 module.exports = app;
