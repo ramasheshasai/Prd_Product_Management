@@ -108,9 +108,6 @@ router.post('/', auth, validatePRD, async (req, res) => {
   }
 });
 
-// @route   PUT /api/prds/:id
-// @desc    Update a PRD
-// @access  Private
 router.put('/:id', auth, validatePRD, async (req, res) => {
   try {
     const prd = await PRD.findOneAndUpdate(

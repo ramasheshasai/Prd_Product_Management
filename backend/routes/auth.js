@@ -91,12 +91,6 @@ router.post('/login', authLimiter, validateUserLogin, async (req, res) => {
     }
 
     // Check if user is active
-    if (!user.isActive) {
-      return res.status(401).json({
-        success: false,
-        message: 'Account is deactivated'
-      });
-    }
 
     // Compare password
     const isMatch = await user.comparePassword(password);
